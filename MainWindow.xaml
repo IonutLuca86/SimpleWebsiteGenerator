@@ -7,6 +7,19 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <TabControl>
+            <TabItem Header="Programmer">
+                <Grid Background="#FFE5E5E5">
+                    <TextBox Name="webText" HorizontalAlignment="Left" Height="276" Margin="10,18,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="755"/>
+                    <Button Name="loadButton" Content="Load File" HorizontalAlignment="Left" Height="24" Margin="49,336,0,0" VerticalAlignment="Top" Width="168" Click="loadButton_Click"/>
+                    <Button Name="saveButton1" Content="Safe File As" HorizontalAlignment="Left" Height="24" Margin="332,336,0,0" VerticalAlignment="Top" Width="176" Click="saveButton1_Click"/>
+                    <TextBox Name="saveBox1" HorizontalAlignment="Left" Height="24" Margin="550,336,0,0" TextWrapping="Wrap" Text="Insert the name of the file here" VerticalAlignment="Top" Width="191"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Noob">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+        </TabControl>
 
     </Grid>
 </Window>
