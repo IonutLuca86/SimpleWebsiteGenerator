@@ -23,7 +23,8 @@ namespace SimpleWebsiteGenerator
     /// </summary>
     public partial class MainWindow : Window
     {
-        string? filename;
+        string filename = string.Empty;
+        List<string> messages = new List<string>();
         public MainWindow()
         {
             InitializeComponent();
@@ -60,7 +61,7 @@ namespace SimpleWebsiteGenerator
             FileStream outputStream;
             StreamWriter writer;
 
-            string path = @"D:\ITHS\Programmering med C# - projekter\SimpleWebsiteGenerator\programmer-" + saveName.Text + ".html";
+            string path = @"D:\ITHS\Programmering med C# - projekter\SimpleWebsiteGenerator\programmer-" + saveBox1.Text + ".html";
             try
             {
                 outputStream = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write);
@@ -77,6 +78,20 @@ namespace SimpleWebsiteGenerator
             outputStream.Close();
             MessageBox.Show("Saved!");
 
+        }
+
+        private void insertHeader_Click(object sender, RoutedEventArgs e)
+        {
+            string header = headerBox.Text;
+            Button clickedButton = (Button)sender;
+            clickedButton.Content = "Done!";
+            clickedButton.IsEnabled = false;
+
+        }
+
+        private void Insertmessage_Click(object sender, RoutedEventArgs e)
+        {
+            messages.Add(messageBox.Text);
         }
     }
 }
