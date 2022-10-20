@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection.PortableExecutable;
@@ -23,8 +24,11 @@ namespace SimpleWebsiteGenerator
     /// </summary>
     public partial class MainWindow : Window
     {
-        string filename = string.Empty;
-        List<string> messages = new List<string>();
+       
+        string? header,colour = string.Empty;
+        public List<string> messages = new List<string>();
+        List<string> techniques = new List<string>();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -33,65 +37,213 @@ namespace SimpleWebsiteGenerator
         private void loadButton_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog dlg = new OpenFileDialog();
-            dlg.InitialDirectory = @"D:\ITHS_Repositories";
-            if (dlg.ShowDialog() == true)
-                filename = dlg.FileName;
-
-            FileStream inputStream;
-            StreamReader reader;
-
-
-            try
+            dlg.FileName = "Websitegenerator";
+            dlg.DefaultExt = ".html";
+            dlg.Filter = "HTML file (.html)|*.html";
+            Nullable<bool> result = dlg.ShowDialog();
+            if (result == true)
             {
-                inputStream = new FileStream(filename, FileMode.Open, FileAccess.ReadWrite);
-                reader = new StreamReader(inputStream);
+                string fileName = dlg.FileName;
+                string read = "";
+                using (StreamReader sr = new StreamReader(fileName))
+                {
+                    read = sr.ReadToEnd();
+                }
+                webText.Text = read;
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Cannot open {filename}.html!" + ex);
-                return;
-            }
-            webText.Text = reader.ReadToEnd();
-            reader.Dispose();
-            inputStream.Close();
         }
 
         private void saveButton1_Click(object sender, RoutedEventArgs e)
         {
-            FileStream outputStream;
-            StreamWriter writer;
-
-            string path = @"D:\ITHS\Programmering med C# - projekter\SimpleWebsiteGenerator\programmer-" + saveBox1.Text + ".html";
-            try
+            SaveFileDialog dlg = new SaveFileDialog();
+            dlg.FileName = "Websitegenerator";
+            dlg.DefaultExt = ".html";
+            dlg.Filter = "HTML file (.html)|*.html";
+            dlg.InitialDirectory = @"D:\ITHS_Repositories";
+            Nullable<bool> result = dlg.ShowDialog();
+            if (result == true)
             {
-                outputStream = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write);
-                writer = new StreamWriter(outputStream);
+                string fileName = dlg.FileName;
+                using (StreamWriter sw = new StreamWriter($"{fileName}.html"))
+                {
+                    sw.WriteLine(webText.Text);
+                }
+                MessageBox.Show($"Saved as {fileName}");
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Cannot open WebsiteGenerator.html for writing" + ex);
-                return;
+               
+                //FileStream outputStream;
+                //StreamWriter writer;
+
+                //string path = @"D:\ITHS\Programmering med C# - projekter\SimpleWebsiteGenerator\programmer-" + saveBox1.Text + ".html";
+                //try
+                //{
+                //    outputStream = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write);
+                //    writer = new StreamWriter(outputStream);
+                //}
+                //catch (Exception ex)
+                //{
+                //    MessageBox.Show("Cannot open WebsiteGenerator.html for writing" + ex);
+                //    return;
+                //}
+
+                //writer.Write(webText.Text);
+                //writer.Close();
+                //outputStream.Close();
+                //MessageBox.Show("Saved!");
+
             }
-
-            writer.Write(webText.Text);
-            writer.Close();
-            outputStream.Close();
-            MessageBox.Show("Saved!");
-
-        }
 
         private void insertHeader_Click(object sender, RoutedEventArgs e)
         {
-            string header = headerBox.Text;
+            header = headerBox.Text;
             Button clickedButton = (Button)sender;
             clickedButton.Content = "Done!";
             clickedButton.IsEnabled = false;
+            headerBox.Clear();
 
         }
 
         private void Insertmessage_Click(object sender, RoutedEventArgs e)
         {
             messages.Add(messageBox.Text);
+            messageBox.Clear();
+        }
+
+        private void saveButton2_Click(object sender, RoutedEventArgs e)
+        {
+            if ((bool)kurs1.IsChecked)
+                techniques.Add(kurs1.Content.ToString());
+            if ((bool)kurs2.IsChecked)
+                techniques.Add(kurs2.Content.ToString());
+            if ((bool)kurs3.IsChecked)
+                techniques.Add(kurs3.Content.ToString());
+            if ((bool)kurs4.IsChecked)
+                techniques.Add(kurs4.Content.ToString());
+            if ((bool)color1.IsChecked)
+                colour = "red";
+            else if ((bool)color2.IsChecked)
+                colour = "blue";
+            else if ((bool)color3.IsChecked)
+                colour = "green";
+            else if ((bool)color4.IsChecked)
+                colour = "black";
+
+
+            StyledWebsiteGenerator perfectWebsite = new StyledWebsiteGenerator(header, colour, messages, techniques);
+            perfectWebsite.Print();
+        }
+
+        private void previewBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+           
         }
     }
+
+    //interface IGenerator
+    //{
+    //    void PrintWebsite();
+    //    void PrintStart();
+    //    void PrintHeader();
+    //    void PrintCourses();
+    //    void PrintEnd();
+    //}
+    //class WebsiteGenerator : IGenerator
+    //{
+    //    protected string start = "<!DOCTYPE HTML>\n<html>\n<body>\n<main>\n";
+    //    protected string end = "</main>\n</body>\n</html>\n";
+    //    protected List<string> techniques, messageToClass;
+    //    protected string className;
+    //    private MainWindow mainWindow;
+
+    //    public WebsiteGenerator(string className, List<string> messageToClass, List<string> techniques)
+    //    {
+    //        this.className = className;
+    //        this.messageToClass = messageToClass;
+    //        this.techniques = techniques;
+    //    }
+
+    //    public void PrintWebsite()
+    //    {
+    //        PrintStart();
+    //        PrintHeader();
+    //        PrintCourses();
+    //        PrintEnd();
+    //    }
+
+    //    public void PrintHeader()
+    //    {
+    //       mainWindow.previewBox.AppendText($"<h1>Välkomna {this.className}</h1>");
+    //        foreach (string msg in this.messageToClass)
+    //        {
+    //            Console.WriteLine($"<p><b>Meddelande: </b>{msg}</p>");
+    //        }
+    //    }
+
+    //    public void PrintCourses()
+    //    {
+    //        foreach (var course in this.techniques)
+    //        {
+    //            Console.WriteLine(course);
+    //        }
+    //    }
+
+    //    public void PrintStart()
+    //    {
+    //        Console.Write(this.start);
+    //    }
+
+    //    public void PrintEnd()
+    //    {
+    //        Console.Write(this.end);
+    //    }
+
+
+    //}
+
+    //class StyledWebsiteGenerator : WebsiteGenerator, IGenerator
+    //{
+    //    private string color;
+
+    //    public StyledWebsiteGenerator(string className, string[] messageToClass, string[] techniques, string color) : base(className, messageToClass, techniques)
+    //    {
+    //        this.color = color;
+    //    }
+    //    public void PrintWebsite()
+    //    {
+    //        PrintStyledStart();
+    //        PrintHeader();
+    //        PrintCourses();
+    //        PrintEnd();
+    //    }
+
+    //    private void PrintStyledStart()
+    //    {
+    //        Console.Write(this.start.Insert(23, $"<head>\n<style>\np {{ color: {this.color}; }}\n</style>\n</head>\n"));
+    //    }
+
+    //    public void PrintToHtml()
+    //    {
+    //        FileStream outputStream;
+    //        StreamWriter writer;
+    //        TextWriter textWriter = Console.Out;
+    //        string path = @"D:\ITHS_repositories\StyledWebbsiteGenerator\WebsiteGenerator.html";
+    //        try
+    //        {
+    //            outputStream = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write);
+    //            writer = new StreamWriter(outputStream);
+    //        }
+    //        catch (Exception e)
+    //        {
+    //            Console.WriteLine("Cannot open WebsiteGenerator.html for writing");
+    //            Console.WriteLine(e.Message);
+    //            return;
+    //        }
+    //        Console.SetOut(writer);
+    //        PrintWebsite();
+    //        Console.SetOut(textWriter);
+    //        writer.Close();
+    //        outputStream.Close();
+    //        Console.WriteLine("\n\nDone");
+    //    }
+    //}
 }
