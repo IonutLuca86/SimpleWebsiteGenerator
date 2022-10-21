@@ -42,7 +42,7 @@
                     <RadioButton Name="color2" Content="Blue" HorizontalAlignment="Left" Margin="296,228,0,0" VerticalAlignment="Top"/>
                     <RadioButton Name="color3" Content="Green" HorizontalAlignment="Left" Margin="296,267,0,0" VerticalAlignment="Top"/>
                     <RadioButton Name="color4" Content="Black" HorizontalAlignment="Left" Margin="296,305,0,0" VerticalAlignment="Top"/>
-                    <Button Content="Button" HorizontalAlignment="Left" Height="29" Margin="296,348,0,0" VerticalAlignment="Top" Width="122" Click="Button_Click"/>
+                    <Button Content="Generate Preview" HorizontalAlignment="Left" Height="29" Margin="296,343,0,0" VerticalAlignment="Top" Width="122" Click="Button_Click"/>
 
                 </Grid>
             </TabItem>
