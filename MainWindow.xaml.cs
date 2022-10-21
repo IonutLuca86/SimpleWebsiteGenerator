@@ -111,6 +111,16 @@ namespace SimpleWebsiteGenerator
 
         private void saveButton2_Click(object sender, RoutedEventArgs e)
         {
+            string getcolour = GetColour();
+            GetTechniques();
+           
+
+            StyledWebsiteGenerator perfectWebsite = new StyledWebsiteGenerator(header, getcolour, messages, techniques);
+            perfectWebsite.Print();
+        }
+
+        private void GetTechniques()
+        {
             if ((bool)kurs1.IsChecked)
                 techniques.Add(kurs1.Content.ToString());
             if ((bool)kurs2.IsChecked)
@@ -119,6 +129,23 @@ namespace SimpleWebsiteGenerator
                 techniques.Add(kurs3.Content.ToString());
             if ((bool)kurs4.IsChecked)
                 techniques.Add(kurs4.Content.ToString());
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            string getcolour = GetColour();
+            GetTechniques();
+           
+
+            StyledWebsiteGenerator perfectWebsite = new StyledWebsiteGenerator(header, getcolour, messages, techniques);
+            previewBox.Text = perfectWebsite.PrintPage();
+
+        }
+
+        private string GetColour()
+        {
+           
             if ((bool)color1.IsChecked)
                 colour = "red";
             else if ((bool)color2.IsChecked)
@@ -127,15 +154,7 @@ namespace SimpleWebsiteGenerator
                 colour = "green";
             else if ((bool)color4.IsChecked)
                 colour = "black";
-
-
-            StyledWebsiteGenerator perfectWebsite = new StyledWebsiteGenerator(header, colour, messages, techniques);
-            perfectWebsite.Print();
-        }
-
-        private void previewBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-           
+            return colour;
         }
     }
 

@@ -11,7 +11,7 @@ namespace SimpleWebsiteGenerator
      
         interface Website
         {
-            void PrintPage();
+            string PrintPage();
             void PrintToFile();
         }
         /*
@@ -55,18 +55,24 @@ namespace SimpleWebsiteGenerator
             }
             string printKurser()
             {
-                return courseGenerator(techniques);
+            foreach (string technique in techniques)
+            {
+                string tmp = technique.Trim();
+                kurser += "<p>" + tmp[0].ToString().ToUpper() + tmp.Substring(1).ToLower() + "</p>\n";
+            }
+            return kurser;
             }
             string printEnd()
             {
                 return "</main>\n</body>\n</html>";
             }
-            public void PrintPage()
+            public string PrintPage()
             {
-                Console.WriteLine(printStart());
-                Console.WriteLine(printWelcome(this.className, this.messagesToClass));
-                Console.WriteLine(printKurser());
-                Console.WriteLine(printEnd());
+                string printS = printStart();
+                string header = printWelcome(this.className, this.messagesToClass);
+                string printK = printKurser();
+                string printE = printEnd();
+                return printS + header + printK + printE;
             }
             public string getFileName()
             {
@@ -134,18 +140,7 @@ namespace SimpleWebsiteGenerator
                     MessageBox.Show($"Saved as {fileName}");
                 }
             }
-            /*
-             * En utility metod
-             */
-            string courseGenerator(List<string> techniques)
-            {
-                foreach (string technique in techniques)
-                {
-                    string tmp = technique.Trim();
-                    kurser += "<p>" + tmp[0].ToString().ToUpper() + tmp.Substring(1).ToLower() + "</p>\n";
-                }
-                return kurser;
-            }
+            
         }
         /*
          * Här ärver vi egenskaper och metoder ifrån WebsiteGenerator för att kunna återanvända delar i vår StyledWebsiteGenerator
