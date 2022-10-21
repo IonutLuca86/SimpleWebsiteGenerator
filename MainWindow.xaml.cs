@@ -17,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace SimpleWebsiteGenerator
 {
     /// <summary>
@@ -32,6 +33,7 @@ namespace SimpleWebsiteGenerator
         public MainWindow()
         {
             InitializeComponent();
+            
         }
 
         private void loadButton_Click(object sender, RoutedEventArgs e)
@@ -140,7 +142,7 @@ namespace SimpleWebsiteGenerator
 
             StyledWebsiteGenerator perfectWebsite = new StyledWebsiteGenerator(header, getcolour, messages, techniques);
             previewBox.Text = perfectWebsite.PrintPage();
-
+            previewBox.IsReadOnly = true;   
         }
 
         private string GetColour()

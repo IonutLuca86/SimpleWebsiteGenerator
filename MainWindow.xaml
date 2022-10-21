@@ -38,10 +38,10 @@
                     <CheckBox Name="kurs3" Content="Kurs i Webutveckling" HorizontalAlignment="Left" Margin="31,267,0,0" VerticalAlignment="Top"/>
                     <CheckBox Name="kurs4" Content="Clean Code" HorizontalAlignment="Left" Margin="31,305,0,0" VerticalAlignment="Top"/>
 
-                    <RadioButton Name="color1" Content="Red" HorizontalAlignment="Left" Margin="296,191,0,0" VerticalAlignment="Top"/>
-                    <RadioButton Name="color2" Content="Blue" HorizontalAlignment="Left" Margin="296,228,0,0" VerticalAlignment="Top"/>
-                    <RadioButton Name="color3" Content="Green" HorizontalAlignment="Left" Margin="296,267,0,0" VerticalAlignment="Top"/>
-                    <RadioButton Name="color4" Content="Black" HorizontalAlignment="Left" Margin="296,305,0,0" VerticalAlignment="Top"/>
+                    <RadioButton Name="color1" Content="Red" HorizontalAlignment="Left" Margin="296,191,0,0" VerticalAlignment="Top" Foreground="Red" />
+                    <RadioButton Name="color2" Content="Blue" HorizontalAlignment="Left" Margin="296,228,0,0" VerticalAlignment="Top" Foreground="Blue" />
+                    <RadioButton Name="color3" Content="Green" HorizontalAlignment="Left" Margin="296,267,0,0" VerticalAlignment="Top" Foreground="Green"/>
+                    <RadioButton Name="color4" Content="Black" HorizontalAlignment="Left" Margin="296,305,0,0" VerticalAlignment="Top" Foreground="Black" />
                     <Button Content="Generate Preview" HorizontalAlignment="Left" Height="29" Margin="296,343,0,0" VerticalAlignment="Top" Width="122" Click="Button_Click"/>
 
                 </Grid>
