@@ -56,10 +56,7 @@ namespace SimpleWebsiteGenerator
             string printKurser()
             {
             foreach (string technique in techniques)
-            {
-                string tmp = technique.Trim();
-                kurser += "<p>" + tmp[0].ToString().ToUpper() + tmp.Substring(1).ToLower() + "</p>\n";
-            }
+                kurser += "<p>" +technique + "</p>\n";
             return kurser;
             }
             string printEnd()
